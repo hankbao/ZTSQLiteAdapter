@@ -1,0 +1,2 @@
+github "Mantle/Mantle" ~> 2.0
+github "hankbao/fmdb" "master"
