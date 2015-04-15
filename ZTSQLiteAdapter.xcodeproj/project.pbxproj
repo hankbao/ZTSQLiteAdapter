@@ -10,6 +10,8 @@
 		A5EF03D81ADE53C7002B348A /* ZTSQLiteAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5EF03DE1ADE53C8002B348A /* ZTSQLiteAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03D21ADE53C7002B348A /* ZTSQLiteAdapter.framework */; };
 		A5EF03E51ADE53C8002B348A /* ZTSQLiteAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EF03E41ADE53C8002B348A /* ZTSQLiteAdapterTests.m */; };
+		A5EF03F01ADE562A002B348A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03EE1ADE562A002B348A /* FMDB.framework */; };
+		A5EF03F11ADE562A002B348A /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03EF1ADE562A002B348A /* Mantle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		A5EF03DD1ADE53C8002B348A /* ZTSQLiteAdapterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZTSQLiteAdapterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5EF03E31ADE53C8002B348A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5EF03E41ADE53C8002B348A /* ZTSQLiteAdapterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTSQLiteAdapterTests.m; sourceTree = "<group>"; };
+		A5EF03EE1ADE562A002B348A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		A5EF03EF1ADE562A002B348A /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5EF03F01ADE562A002B348A /* FMDB.framework in Frameworks */,
+				A5EF03F11ADE562A002B348A /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +59,8 @@
 		A5EF03C81ADE53C7002B348A = {
 			isa = PBXGroup;
 			children = (
+				A5EF03EE1ADE562A002B348A /* FMDB.framework */,
+				A5EF03EF1ADE562A002B348A /* Mantle.framework */,
 				A5EF03D41ADE53C7002B348A /* ZTSQLiteAdapter */,
 				A5EF03E11ADE53C8002B348A /* ZTSQLiteAdapterTests */,
 				A5EF03D31ADE53C7002B348A /* Products */,
@@ -326,8 +334,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ZTSQLiteAdapter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -341,8 +354,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ZTSQLiteAdapter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -398,6 +416,7 @@
 				A5EF03EA1ADE53C8002B348A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A5EF03EB1ADE53C8002B348A /* Build configuration list for PBXNativeTarget "ZTSQLiteAdapterTests" */ = {
 			isa = XCConfigurationList;
@@ -406,6 +425,7 @@
 				A5EF03ED1ADE53C8002B348A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
