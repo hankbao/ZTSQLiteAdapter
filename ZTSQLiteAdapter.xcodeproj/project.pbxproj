@@ -59,10 +59,9 @@
 		A5EF03C81ADE53C7002B348A = {
 			isa = PBXGroup;
 			children = (
-				A5EF03EE1ADE562A002B348A /* FMDB.framework */,
-				A5EF03EF1ADE562A002B348A /* Mantle.framework */,
 				A5EF03D41ADE53C7002B348A /* ZTSQLiteAdapter */,
 				A5EF03E11ADE53C8002B348A /* ZTSQLiteAdapterTests */,
+				A5EF03F21ADE5656002B348A /* Frameworks */,
 				A5EF03D31ADE53C7002B348A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,6 +107,15 @@
 				A5EF03E31ADE53C8002B348A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A5EF03F21ADE5656002B348A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5EF03EE1ADE562A002B348A /* FMDB.framework */,
+				A5EF03EF1ADE562A002B348A /* Mantle.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
