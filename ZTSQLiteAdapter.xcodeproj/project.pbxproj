@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A579DD811ADE5737003830F1 /* ZTSQLiteAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A579DD801ADE5737003830F1 /* ZTSQLiteAdapter.m */; };
+		A579DD8C1ADE5F2C003830F1 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = A579DD861ADE5F2C003830F1 /* EXTRuntimeExtensions.h */; };
+		A579DD8D1ADE5F2C003830F1 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = A579DD871ADE5F2C003830F1 /* EXTRuntimeExtensions.m */; };
+		A579DD8E1ADE5F2C003830F1 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = A579DD881ADE5F2C003830F1 /* EXTScope.h */; };
+		A579DD8F1ADE5F2C003830F1 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = A579DD891ADE5F2C003830F1 /* EXTScope.m */; };
+		A579DD901ADE5F2C003830F1 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A579DD8A1ADE5F2C003830F1 /* metamacros.h */; };
 		A5EF03D81ADE53C7002B348A /* ZTSQLiteAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5EF03DE1ADE53C8002B348A /* ZTSQLiteAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03D21ADE53C7002B348A /* ZTSQLiteAdapter.framework */; };
 		A5EF03E51ADE53C8002B348A /* ZTSQLiteAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EF03E41ADE53C8002B348A /* ZTSQLiteAdapterTests.m */; };
@@ -25,6 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A579DD801ADE5737003830F1 /* ZTSQLiteAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTSQLiteAdapter.m; sourceTree = "<group>"; };
+		A579DD861ADE5F2C003830F1 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		A579DD871ADE5F2C003830F1 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
+		A579DD881ADE5F2C003830F1 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
+		A579DD891ADE5F2C003830F1 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
+		A579DD8A1ADE5F2C003830F1 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		A5EF03D21ADE53C7002B348A /* ZTSQLiteAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZTSQLiteAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5EF03D61ADE53C7002B348A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTSQLiteAdapter.h; sourceTree = "<group>"; };
@@ -56,6 +68,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A579DD841ADE5F2C003830F1 /* extobjc */ = {
+			isa = PBXGroup;
+			children = (
+				A579DD861ADE5F2C003830F1 /* EXTRuntimeExtensions.h */,
+				A579DD871ADE5F2C003830F1 /* EXTRuntimeExtensions.m */,
+				A579DD881ADE5F2C003830F1 /* EXTScope.h */,
+				A579DD891ADE5F2C003830F1 /* EXTScope.m */,
+				A579DD8A1ADE5F2C003830F1 /* metamacros.h */,
+			);
+			path = extobjc;
+			sourceTree = "<group>";
+		};
 		A5EF03C81ADE53C7002B348A = {
 			isa = PBXGroup;
 			children = (
@@ -78,7 +102,9 @@
 		A5EF03D41ADE53C7002B348A /* ZTSQLiteAdapter */ = {
 			isa = PBXGroup;
 			children = (
+				A579DD841ADE5F2C003830F1 /* extobjc */,
 				A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */,
+				A579DD801ADE5737003830F1 /* ZTSQLiteAdapter.m */,
 				A5EF03D51ADE53C7002B348A /* Supporting Files */,
 			);
 			path = ZTSQLiteAdapter;
@@ -125,7 +151,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A579DD8C1ADE5F2C003830F1 /* EXTRuntimeExtensions.h in Headers */,
 				A5EF03D81ADE53C7002B348A /* ZTSQLiteAdapter.h in Headers */,
+				A579DD901ADE5F2C003830F1 /* metamacros.h in Headers */,
+				A579DD8E1ADE5F2C003830F1 /* EXTScope.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +254,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A579DD8F1ADE5F2C003830F1 /* EXTScope.m in Sources */,
+				A579DD8D1ADE5F2C003830F1 /* EXTRuntimeExtensions.m in Sources */,
+				A579DD811ADE5737003830F1 /* ZTSQLiteAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
