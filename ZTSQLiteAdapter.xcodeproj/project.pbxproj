@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A579DD811ADE5737003830F1 /* ZTSQLiteAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A579DD801ADE5737003830F1 /* ZTSQLiteAdapter.m */; };
+		A579DD8C1ADE5F2C003830F1 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = A579DD861ADE5F2C003830F1 /* EXTRuntimeExtensions.h */; };
+		A579DD8D1ADE5F2C003830F1 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = A579DD871ADE5F2C003830F1 /* EXTRuntimeExtensions.m */; };
+		A579DD8E1ADE5F2C003830F1 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = A579DD881ADE5F2C003830F1 /* EXTScope.h */; };
+		A579DD8F1ADE5F2C003830F1 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = A579DD891ADE5F2C003830F1 /* EXTScope.m */; };
+		A579DD901ADE5F2C003830F1 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A579DD8A1ADE5F2C003830F1 /* metamacros.h */; };
 		A5EF03D81ADE53C7002B348A /* ZTSQLiteAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5EF03DE1ADE53C8002B348A /* ZTSQLiteAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03D21ADE53C7002B348A /* ZTSQLiteAdapter.framework */; };
 		A5EF03E51ADE53C8002B348A /* ZTSQLiteAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EF03E41ADE53C8002B348A /* ZTSQLiteAdapterTests.m */; };
+		A5EF03F01ADE562A002B348A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03EE1ADE562A002B348A /* FMDB.framework */; };
+		A5EF03F11ADE562A002B348A /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03EF1ADE562A002B348A /* Mantle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +31,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A579DD801ADE5737003830F1 /* ZTSQLiteAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTSQLiteAdapter.m; sourceTree = "<group>"; };
+		A579DD861ADE5F2C003830F1 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		A579DD871ADE5F2C003830F1 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
+		A579DD881ADE5F2C003830F1 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
+		A579DD891ADE5F2C003830F1 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
+		A579DD8A1ADE5F2C003830F1 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		A5EF03D21ADE53C7002B348A /* ZTSQLiteAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZTSQLiteAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5EF03D61ADE53C7002B348A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTSQLiteAdapter.h; sourceTree = "<group>"; };
 		A5EF03DD1ADE53C8002B348A /* ZTSQLiteAdapterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZTSQLiteAdapterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5EF03E31ADE53C8002B348A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5EF03E41ADE53C8002B348A /* ZTSQLiteAdapterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTSQLiteAdapterTests.m; sourceTree = "<group>"; };
+		A5EF03EE1ADE562A002B348A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		A5EF03EF1ADE562A002B348A /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = Carthage/Build/iOS/Mantle.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5EF03F01ADE562A002B348A /* FMDB.framework in Frameworks */,
+				A5EF03F11ADE562A002B348A /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,11 +68,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A579DD841ADE5F2C003830F1 /* extobjc */ = {
+			isa = PBXGroup;
+			children = (
+				A579DD861ADE5F2C003830F1 /* EXTRuntimeExtensions.h */,
+				A579DD871ADE5F2C003830F1 /* EXTRuntimeExtensions.m */,
+				A579DD881ADE5F2C003830F1 /* EXTScope.h */,
+				A579DD891ADE5F2C003830F1 /* EXTScope.m */,
+				A579DD8A1ADE5F2C003830F1 /* metamacros.h */,
+			);
+			path = extobjc;
+			sourceTree = "<group>";
+		};
 		A5EF03C81ADE53C7002B348A = {
 			isa = PBXGroup;
 			children = (
 				A5EF03D41ADE53C7002B348A /* ZTSQLiteAdapter */,
 				A5EF03E11ADE53C8002B348A /* ZTSQLiteAdapterTests */,
+				A5EF03F21ADE5656002B348A /* Frameworks */,
 				A5EF03D31ADE53C7002B348A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,7 +102,9 @@
 		A5EF03D41ADE53C7002B348A /* ZTSQLiteAdapter */ = {
 			isa = PBXGroup;
 			children = (
+				A579DD841ADE5F2C003830F1 /* extobjc */,
 				A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */,
+				A579DD801ADE5737003830F1 /* ZTSQLiteAdapter.m */,
 				A5EF03D51ADE53C7002B348A /* Supporting Files */,
 			);
 			path = ZTSQLiteAdapter;
@@ -102,6 +135,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A5EF03F21ADE5656002B348A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5EF03EE1ADE562A002B348A /* FMDB.framework */,
+				A5EF03EF1ADE562A002B348A /* Mantle.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -109,7 +151,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A579DD8C1ADE5F2C003830F1 /* EXTRuntimeExtensions.h in Headers */,
 				A5EF03D81ADE53C7002B348A /* ZTSQLiteAdapter.h in Headers */,
+				A579DD901ADE5F2C003830F1 /* metamacros.h in Headers */,
+				A579DD8E1ADE5F2C003830F1 /* EXTScope.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +254,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A579DD8F1ADE5F2C003830F1 /* EXTScope.m in Sources */,
+				A579DD8D1ADE5F2C003830F1 /* EXTRuntimeExtensions.m in Sources */,
+				A579DD811ADE5737003830F1 /* ZTSQLiteAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +344,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -326,10 +374,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ZTSQLiteAdapter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -341,10 +394,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ZTSQLiteAdapter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -398,6 +456,7 @@
 				A5EF03EA1ADE53C8002B348A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A5EF03EB1ADE53C8002B348A /* Build configuration list for PBXNativeTarget "ZTSQLiteAdapterTests" */ = {
 			isa = XCConfigurationList;
@@ -406,6 +465,7 @@
 				A5EF03ED1ADE53C8002B348A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
