@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A5EF039C1ADE4A41002B348A"
-               BuildableName = "fmdb.framework"
+               BuildableName = "FMDB.framework"
                BlueprintName = "FMDB-Framework"
                ReferencedContainer = "container:fmdb.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A5EF039C1ADE4A41002B348A"
-            BuildableName = "fmdb.framework"
+            BuildableName = "FMDB.framework"
             BlueprintName = "FMDB-Framework"
             ReferencedContainer = "container:fmdb.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A5EF039C1ADE4A41002B348A"
-            BuildableName = "fmdb.framework"
+            BuildableName = "FMDB.framework"
             BlueprintName = "FMDB-Framework"
             ReferencedContainer = "container:fmdb.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A5EF039C1ADE4A41002B348A"
-            BuildableName = "fmdb.framework"
+            BuildableName = "FMDB.framework"
             BlueprintName = "FMDB-Framework"
             ReferencedContainer = "container:fmdb.xcodeproj">
          </BuildableReference>
