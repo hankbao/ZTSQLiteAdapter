@@ -61,11 +61,31 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 
 @end
 
+/// The domain for errors originating from ZTSQLiteAdapter.
+extern NSString * const ZTSQLiteAdapterErrorDomain;
+
+/// +classForParsingResultSet: returned nil for the given dictionary.
+extern const NSInteger ZTSQLiteAdapterErrorNoClassFound;
+
+/// Converts a MTLModel object to SQLite parameter dictionary (FMDB) with optional statement
+/// and from a SQLite result set (FMDB).
 @interface ZTSQLiteAdapter : NSObject
 
+/// Attempts to parse a SQLite result set into a model object.
+///
+/// modelClass     - The MTLModel subclass to attempt to parse from the JSON.
+///                  This class must conform to <ZTSQLiteSerializing>. This
+///                  argument must not be nil.
+/// resultSet      - A SQLite result set return by a query. If this argument is
+///                  nil, the method returns nil.
+/// error          - If not NULL, this may be set to an error that occurs during
+///                  parsing or initializing an instance of `modelClass`.
+///
+/// Returns an instance of `modelClass` upon success, or nil if a parsing error
+/// occurred.
 + (id)modelOfClass:(Class)modelClass fromResultSet:(FMResultSet *)resultSet error:(NSError **)error;
 
-/// Serializes a model into SQLite parameter dictionary representation.
+/// Converts a model into SQLite parameter dictionary representation.
 ///
 /// model - The model to use for INSERT statement serialization. This argument must not be nil.
 /// tableName - The name of a table the statement will be executed on. This argument must not be nil.
@@ -73,10 +93,9 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// error - If not NULL, this may be set to an error that occurs during serializing.
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
-+ (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName
-                                     statement:(NSString **)statement error:(NSError **)error;
++ (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
 
-/// Serializes a model into SQLite parameter dictionary representation.
+/// Converts a model into SQLite parameter dictionary representation.
 ///
 /// model - The model to use for INSERT statement serialization. This argument must not be nil.
 /// tableName - The name of a table the statement will be executed on. This argument must not be nil.
@@ -84,10 +103,9 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// error - If not NULL, this may be set to an error that occurs during serializing.
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
-+ (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName
-                                     statement:(NSString **)statement error:(NSError **)error;
++ (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
 
-/// Serializes a model into SQLite parameter dictionary representation.
+/// Converts a model into SQLite parameter dictionary representation.
 ///
 /// model - The model to use for DELETE statement serialization. This argument must not be nil.
 /// tableName - The name of a table the statement will be executed on. This argument must not be nil.
@@ -95,8 +113,7 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// error - If not NULL, this may be set to an error that occurs during serializing.
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
-+ (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName
-                                     statement:(NSString **)statement error:(NSError **)error;
++ (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
 
 /// Initializes the receiver with a given model class.
 ///
@@ -128,8 +145,7 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// error - If not NULL, this may be set to an error that occurs during serializing.
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName
-                                     statement:(NSString **)statement error:(NSError **)error;
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
 
 /// Serializes a model into SQLite parameter dictionary representation.
 ///
@@ -139,8 +155,7 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// error - If not NULL, this may be set to an error that occurs during serializing.
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName
-                                     statement:(NSString **)statement error:(NSError **)error;
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
 
 /// Serializes a model into SQLite parameter dictionary representation.
 ///
@@ -150,8 +165,7 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// error - If not NULL, this may be set to an error that occurs during serializing.
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName
-                                     statement:(NSString **)statement error:(NSError **)error;
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
 
 /// Filters the property keys used to insert a given model.
 ///

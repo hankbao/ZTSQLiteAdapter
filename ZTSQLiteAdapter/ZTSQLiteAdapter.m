@@ -14,8 +14,6 @@
 
 NSString * const ZTSQLiteAdapterErrorDomain = @"ZTSQLiteAdapterErrorDomain";
 const NSInteger ZTSQLiteAdapterErrorNoClassFound = 2;
-const NSInteger ZTSQLiteAdapterErrorInvalidResultSet = 3;
-const NSInteger ZTSQLiteAdapterErrorInvalidColumnMapping = 4;
 
 // An exception was thrown and caught.
 const NSInteger ZTSQLiteAdapterErrorExceptionThrown = 1;
@@ -79,35 +77,30 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
 @implementation ZTSQLiteAdapter
 
-+ (id)modelOfClass:(Class)modelClass fromResultSet:(FMResultSet *)resultSet error:(NSError *__autoreleasing *)error
-{
++ (id)modelOfClass:(Class)modelClass fromResultSet:(FMResultSet *)resultSet error:(NSError *__autoreleasing *)error {
     ZTSQLiteAdapter *adapter = [[self alloc] initWithModelClass:modelClass];
     return [adapter modelFromResultSet:resultSet error:error];
 }
 
 + (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName
-                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error
-{
+                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
     ZTSQLiteAdapter *adapter = [[self alloc] initWithModelClass:model.class];
     return [adapter parameterDictionaryFromModel:model insertingIntoTable:tableName statement:statement error:error];
 }
 
 + (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName
-                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error
-{
+                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
     ZTSQLiteAdapter *adapter = [[self alloc] initWithModelClass:model.class];
     return [adapter parameterDictionaryFromModel:model updatingInTable:tableName statement:statement error:error];
 }
 
 + (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName
-                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error
-{
+                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
     ZTSQLiteAdapter *adapter = [[self alloc] initWithModelClass:model.class];
     return [adapter parameterDictionaryFromModel:model deletingFromTable:tableName statement:statement error:error];
 }
 
-- (instancetype)initWithModelClass:(Class)modelClass
-{
+- (instancetype)initWithModelClass:(Class)modelClass {
     NSParameterAssert(modelClass);
     NSParameterAssert([modelClass conformsToProtocol:@protocol(ZTSQLiteSerializing)]);
 
@@ -135,9 +128,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return self;
 }
 
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model propertyKeys:(NSSet *)propertyKeys
-                                         error:(NSError *__autoreleasing *)error
-{
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model propertyKeys:(NSSet *)propertyKeys error:(NSError *__autoreleasing *)error {
     NSMutableDictionary *parameterDictionary = [NSMutableDictionary dictionaryWithCapacity:propertyKeys.count];
 
     __block BOOL success = YES;
@@ -181,8 +172,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     }
 }
 
-- (NSString *)whereClauseWithColumnNames:(NSArray *)columnNames
-{
+- (NSString *)whereClauseWithColumnNames:(NSArray *)columnNames {
     NSMutableArray *whereComponents = [NSMutableArray arrayWithCapacity:columnNames.count];
     for (NSString *name in columnNames) {
         [whereComponents addObject:[NSString stringWithFormat:@"%@ = ?", name]];
@@ -190,9 +180,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return [whereComponents componentsJoinedByString:@" AND "];
 }
 
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName
-                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error
-{
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
     NSParameterAssert(model);
     NSParameterAssert([model isKindOfClass:self.modelClass]);
     NSParameterAssert(tableName);
@@ -217,9 +205,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return [self parameterDictionaryFromModel:model propertyKeys:propertyKeysToInsert error:error];
 }
 
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName
-                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error
-{
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model updatingInTable:(NSString *)tableName statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
     NSParameterAssert(model);
     NSParameterAssert([model isKindOfClass:self.modelClass]);
     NSParameterAssert(tableName);
@@ -252,9 +238,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return [self parameterDictionaryFromModel:model propertyKeys:propertyKeysToUpdating error:error];
 }
 
-- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName
-                                     statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error
-{
+- (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
     NSParameterAssert(model);
     NSParameterAssert([model isKindOfClass:self.modelClass]);
     NSParameterAssert(tableName);
@@ -282,9 +266,11 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return nil;
 }
 
-- (id)modelFromResultSet:(FMResultSet *)resultSet error:(NSError *__autoreleasing *)error
-{
+- (id)modelFromResultSet:(FMResultSet *)resultSet error:(NSError *__autoreleasing *)error {
     NSParameterAssert(resultSet);
+    if (!resultSet) {
+        return nil;
+    }
 
     if ([self.modelClass respondsToSelector:@selector(classForParsingResultSet:)]) {
         Class class = [self.modelClass classForParsingResultSet:resultSet];
@@ -334,7 +320,9 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
                     BOOL success = YES;
                     value = [errorHandlingTransformer transformedValue:value success:&success error:error];
 
-                    if (!success) return nil;
+                    if (!success) {
+                        return nil;
+                    }
                 } else {
                     value = [transformer transformedValue:value];
                 }
@@ -371,13 +359,11 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return [model validate:error] ? model : nil;
 }
 
-- (NSSet *)insertablePropertyKeys:(NSSet *)propertyKeys forModel:(id<ZTSQLiteSerializing>)model
-{
+- (NSSet *)insertablePropertyKeys:(NSSet *)propertyKeys forModel:(id<ZTSQLiteSerializing>)model {
     return propertyKeys;
 }
 
-- (NSSet *)updatablePropertyKeys:(NSSet *)propertyKeys forModel:(id<ZTSQLiteSerializing>)model
-{
+- (NSSet *)updatablePropertyKeys:(NSSet *)propertyKeys forModel:(id<ZTSQLiteSerializing>)model {
     if ([model respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
         NSMutableSet* keys = [propertyKeys mutableCopy];
         [keys minusSet:[model propertyKeysForPrimaryKeys]];
@@ -386,8 +372,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return propertyKeys;
 }
 
-- (ZTSQLiteAdapter *)SQLiteAdapterForModelClass:(Class)modelClass error:(NSError *__autoreleasing *)error
-{
+- (ZTSQLiteAdapter *)SQLiteAdapterForModelClass:(Class)modelClass error:(NSError *__autoreleasing *)error {
     NSParameterAssert(modelClass);
     NSParameterAssert([modelClass conformsToProtocol:@protocol(ZTSQLiteSerializing)]);
 
@@ -408,8 +393,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     }
 }
 
-+ (NSDictionary *)valueTransformersForModelClass:(Class)modelClass
-{
++ (NSDictionary *)valueTransformersForModelClass:(Class)modelClass {
     NSParameterAssert(modelClass);
     NSParameterAssert([modelClass conformsToProtocol:@protocol(ZTSQLiteSerializing)]);
 
@@ -472,8 +456,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return result;
 }
 
-+ (NSValueTransformer *)transformerForModelPropertiesOfClass:(Class)modelClass
-{
++ (NSValueTransformer *)transformerForModelPropertiesOfClass:(Class)modelClass {
     NSParameterAssert(modelClass);
 
     SEL selector = MTLSelectorWithKeyPattern(NSStringFromClass(modelClass), "SQLiteColumnTransformer");
@@ -491,8 +474,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return result;
 }
 
-+ (NSValueTransformer *)transformerForModelPropertiesOfObjCType:(const char *)objCType
-{
++ (NSValueTransformer *)transformerForModelPropertiesOfObjCType:(const char *)objCType {
     NSParameterAssert(objCType);
 
     if (strcmp(objCType, @encode(BOOL)) == 0) {
