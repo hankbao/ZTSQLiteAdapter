@@ -31,6 +31,14 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 
 @optional
 
+/// Specifies how to map property keys to different column names in SQLite statement.
+///
+/// Subclasses overriding this method should combine their values with those of
+/// `super`.
+///
+/// Any keys omitted will not participate in SQLite serialization.
++ (NSDictionary *)SQLiteColumnDefinitionsByPropertyKey;
+
 /// Specifies property keys as primary keys to identify the object in a SQL statement
 ///
 /// Returns a set of property keys.
@@ -114,6 +122,15 @@ extern const NSInteger ZTSQLiteAdapterErrorNoClassFound;
 ///
 /// Returns a SQLite parameter dictionary representation, or nil if a serialization error occurred.
 + (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName statement:(NSString **)statement error:(NSError **)error;
+
+/// Attempts to parse a model to get column definition clause used in CREATE / ALTER statements
+///
+/// modelClass     - The MTLModel subclass to attempt to parse from the JSON.
+///                  This class must conform to <ZTSQLiteSerializing> and implement
+///                  +SQLiteColumnDefinitionsByPropertyKey. This argument must not be nil.
+///
+/// Returns a SQLite column definition clause, or nil if an error occurred.
++ (NSString *)columnDefinitionsOfClass:(Class)modelClass;
 
 /// Initializes the receiver with a given model class.
 ///

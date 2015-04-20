@@ -100,6 +100,34 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return [adapter parameterDictionaryFromModel:model deletingFromTable:tableName statement:statement error:error];
 }
 
++ (NSString *)columnDefinitionsOfClass:(Class)modelClass
+{
+    NSParameterAssert(modelClass);
+    NSParameterAssert([modelClass conformsToProtocol:@protocol(ZTSQLiteSerializing)]);
+
+    if (![modelClass respondsToSelector:@selector(SQLiteColumnDefinitionsByPropertyKey)]) {
+        return nil;
+    }
+
+    __block NSMutableString *defs = nil;
+    NSDictionary *columnDefinitionsByPropertyKey = [modelClass SQLiteColumnDefinitionsByPropertyKey];
+    [[modelClass SQLiteColumnNamesByPropertyKey] enumerateKeysAndObjectsUsingBlock:^(NSString* propertyKey, NSString* columnName, BOOL *stop) {
+        if (!defs) {
+            defs = [NSMutableString stringWithFormat:@"(%@", columnName];
+        } else {
+            [defs appendFormat:@", %@", columnName];
+        }
+
+        NSString *def = columnDefinitionsByPropertyKey[propertyKey];
+        if (def) {
+            [defs appendFormat:@" %@", def];
+        }
+    }];
+
+    [defs appendString:@")"];
+    return [defs copy];
+}
+
 - (instancetype)initWithModelClass:(Class)modelClass {
     NSParameterAssert(modelClass);
     NSParameterAssert([modelClass conformsToProtocol:@protocol(ZTSQLiteSerializing)]);
