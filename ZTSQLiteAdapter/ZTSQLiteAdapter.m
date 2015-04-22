@@ -149,7 +149,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
                 return nil;
             }
         }
-        
+
         _valueTransformersByPropertyKey = [self.class valueTransformersForModelClass:modelClass];
         _SQLiteAdaptersByModelClass = [NSMapTable strongToStrongObjectsMapTable];
     }
@@ -203,7 +203,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 - (NSString *)whereClauseWithColumnNames:(NSArray *)columnNames {
     NSMutableArray *whereComponents = [NSMutableArray arrayWithCapacity:columnNames.count];
     for (NSString *name in columnNames) {
-        [whereComponents addObject:[NSString stringWithFormat:@"%@ = ?", name]];
+        [whereComponents addObject:[NSString stringWithFormat:@"%@ = :%@", name, name]];
     }
     return [whereComponents componentsJoinedByString:@" AND "];
 }
@@ -222,12 +222,12 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
     if (statement) {
         NSArray *columnNames = [self.SQLiteColumnNamesByPropertyKey dictionaryWithValuesForKeys:propertyKeysToInsert.allObjects].allValues;
-        NSMutableArray *questionMarks = [NSMutableArray arrayWithCapacity:columnNames.count];
-        for (int i = 0; i < columnNames.count; ++i) {
-            [questionMarks addObject:@"?"];
+        NSMutableArray *parameters = [NSMutableArray arrayWithCapacity:columnNames.count];
+        for (NSString *name in columnNames) {
+            [parameters addObject:[NSString stringWithFormat:@":%@", name]];
         }
         *statement = [NSString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (%@);", tableName,
-                      [columnNames componentsJoinedByString:@", "], [questionMarks componentsJoinedByString:@", "]];
+                      [columnNames componentsJoinedByString:@", "], [parameters componentsJoinedByString:@", "]];
     }
 
     return [self parameterDictionaryFromModel:model propertyKeys:propertyKeysToInsert error:error];
@@ -252,7 +252,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
             NSArray *columnsToSet = [self.SQLiteColumnNamesByPropertyKey dictionaryWithValuesForKeys:propertyKeysToUpdating.allObjects].allValues;
             NSMutableArray *setComponents = [NSMutableArray arrayWithCapacity:columnsToSet.count];
             for (NSString *name in columnsToSet) {
-                [setComponents addObject:[NSString stringWithFormat:@"%@ = ?", name]];
+                [setComponents addObject:[NSString stringWithFormat:@"%@ = :%@", name, name]];
             }
 
             NSArray *columnsForWhere = [self.SQLiteColumnNamesByPropertyKey dictionaryWithValuesForKeys:propertyKeysForPrimaryKeys.allObjects].allValues;
@@ -354,7 +354,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
                 } else {
                     value = [transformer transformedValue:value];
                 }
-                
+
                 if (value == nil) {
                     value = [NSNull null];
                 }
@@ -373,10 +373,10 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
                                             NSLocalizedFailureReasonErrorKey: ex.reason,
                                             ZTSQLiteAdapterThrownExceptionErrorKey: ex
                                             };
-                
+
                 *error = [NSError errorWithDomain:ZTSQLiteAdapterErrorDomain code:ZTSQLiteAdapterErrorExceptionThrown userInfo:userInfo];
             }
-            
+
             return nil;
             #endif
         }
@@ -416,7 +416,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
         if (result != nil) {
             [self.SQLiteAdaptersByModelClass setObject:result forKey:modelClass];
         }
-        
+
         return result;
     }
 }
@@ -475,7 +475,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
         } else {
             transformer = [self transformerForModelPropertiesOfObjCType:attributes->type] ?: [NSValueTransformer mtl_validatingTransformerForClass:NSValue.class];
         }
-        
+
         if (transformer) {
             result[key] = transformer;
         }
@@ -491,12 +491,12 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     if (![self respondsToSelector:selector]) {
         return nil;
     }
-
+    
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
     invocation.target = self;
     invocation.selector = selector;
     [invocation invoke];
-
+    
     __unsafe_unretained id result = nil;
     [invocation getReturnValue:&result];
     return result;
@@ -504,7 +504,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
 + (NSValueTransformer *)transformerForModelPropertiesOfObjCType:(const char *)objCType {
     NSParameterAssert(objCType);
-
+    
     if (strcmp(objCType, @encode(BOOL)) == 0) {
         return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
     }
