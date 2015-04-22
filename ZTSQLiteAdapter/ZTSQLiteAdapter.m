@@ -181,6 +181,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
                     *stop = YES;
                     return;
                 }
+                value = value ?: [NSNull null];
             } else {
                 value = [transformer reverseTransformedValue:value] ?: [NSNull null];
             }
@@ -438,16 +439,20 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
             __unsafe_unretained id transformer = nil;
             [invocation getReturnValue:&transformer];
 
-            if (transformer != nil) result[key] = transformer;
-            
+            if (transformer != nil) {
+                result[key] = transformer;
+            }
+
             continue;
         }
 
         if ([modelClass respondsToSelector:@selector(SQLiteColumnTransformerForKey:)]) {
             NSValueTransformer *transformer = [modelClass SQLiteColumnTransformerForKey:key];
 
-            if (transformer != nil) result[key] = transformer;
-            
+            if (transformer != nil) {
+                result[key] = transformer;
+            }
+
             continue;
         }
 
