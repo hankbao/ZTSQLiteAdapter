@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 zTap studio. All rights reserved.
 //
 
-@import FMDB;
-
 #import "ZTSQLiteAdapter.h"
 #import "EXTRuntimeExtensions.h"
 #import "EXTScope.h"
@@ -51,11 +49,11 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 // Used to cache the SQLite adapters returned by -SQLiteAdapterForModelClass:error:.
 @property (nonatomic, strong, readonly) NSMapTable *SQLiteAdaptersByModelClass;
 
-// If +classForParsingResultSet: returns a model class different from the
+// If +classForParsingResultDictionary: returns a model class different from the
 // one this adapter was initialized with, use this method to obtain a cached
 // instance of a suitable adapter instead.
 //
-// modelClass - The class from which to parse the result set. This class must conform
+// modelClass - The class from which to parse the result dictionary. This class must conform
 //              to <ZTSQLiteSerializing>. This argument must not be nil.
 // error -      If not NULL, this may be set to an error that occurs during
 //              initializing the adapter.
@@ -66,7 +64,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
 // Collect all value transformers needed for a given class.
 //
-// modelClass - The class from which to parse the SQLite result set. This class must conform
+// modelClass - The class from which to parse the SQLite result dictionary. This class must conform
 //              to <ZTSQLiteSerializing>. This argument must not be nil.
 //
 // Returns a dictionary with the properties of modelClass that need
@@ -77,9 +75,9 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
 @implementation ZTSQLiteAdapter
 
-+ (id)modelOfClass:(Class)modelClass fromResultSet:(FMResultSet *)resultSet error:(NSError *__autoreleasing *)error {
++ (id)modelOfClass:(Class)modelClass fromResultDictionary:(NSDictionary *)resultDictionary error:(NSError *__autoreleasing *)error {
     ZTSQLiteAdapter *adapter = [[self alloc] initWithModelClass:modelClass];
-    return [adapter modelFromResultSet:resultSet error:error];
+    return [adapter modelFromResultDictionary:resultDictionary error:error];
 }
 
 + (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model insertingIntoTable:(NSString *)tableName
@@ -295,18 +293,19 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     return nil;
 }
 
-- (id)modelFromResultSet:(FMResultSet *)resultSet error:(NSError *__autoreleasing *)error {
-    NSParameterAssert(resultSet);
-    if (!resultSet) {
+- (id)modelFromResultDictionary:(NSDictionary *)resultDictionary error:(NSError *__autoreleasing *)error {
+    NSParameterAssert(resultDictionary);
+    NSParameterAssert([resultDictionary isKindOfClass:NSDictionary.class]);
+    if (!resultDictionary) {
         return nil;
     }
 
-    if ([self.modelClass respondsToSelector:@selector(classForParsingResultSet:)]) {
-        Class class = [self.modelClass classForParsingResultSet:resultSet];
+    if ([self.modelClass respondsToSelector:@selector(classForParsingResultDictionary:)]) {
+        Class class = [self.modelClass classForParsingResultDictionary:resultDictionary];
         if (!class) {
             if (error) {
-                NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Cloud not parse SQLite result set", @""),
-                                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"No model class could be found to parse the SQLite result set.", @"")
+                NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"Cloud not parse SQLite result dictionary", @""),
+                                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"No model class could be found to parse the SQLite result dictionary.", @"")
                                             };
 
                 *error = [NSError errorWithDomain:ZTSQLiteAdapterErrorDomain code:ZTSQLiteAdapterErrorNoClassFound userInfo:userInfo];
@@ -316,15 +315,15 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
         }
 
         if (class != self.modelClass) {
-            NSAssert([class conformsToProtocol:@protocol(ZTSQLiteSerializing)], @"Class %@ returned from +classForParsingResultSet: does not conform to <ZTSQLiteSerializing>", class);
+            NSAssert([class conformsToProtocol:@protocol(ZTSQLiteSerializing)], @"Class %@ returned from +classForParsingResultDictionary: does not conform to <ZTSQLiteSerializing>", class);
 
             ZTSQLiteAdapter *otherAdapter = [self SQLiteAdapterForModelClass:class error:error];
 
-            return [otherAdapter modelFromResultSet:resultSet error:error];
+            return [otherAdapter modelFromResultDictionary:resultDictionary error:error];
         }
     }
 
-    NSMutableDictionary *dictionaryValue = [NSMutableDictionary dictionaryWithCapacity:resultSet.columnCount];
+    NSMutableDictionary *dictionaryValue = [NSMutableDictionary dictionaryWithCapacity:resultDictionary.count];
 
     for (NSString *propertyKey in [self.modelClass propertyKeys]) {
         NSString *columnName = self.SQLiteColumnNamesByPropertyKey[propertyKey];
@@ -332,7 +331,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
             continue;
         }
 
-        id value = [resultSet objectForColumnName:columnName];
+        id value = [resultDictionary objectForKey:columnName];
 
         @try {
             NSValueTransformer *transformer = self.valueTransformersByPropertyKey[propertyKey];
@@ -363,7 +362,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
             dictionaryValue[propertyKey] = value;
         } @catch (NSException *ex) {
-            NSLog(@"*** Caught exception %@ parsing column name \"%@\" from: %@", ex, columnName, resultSet);
+            NSLog(@"*** Caught exception %@ parsing column name \"%@\" from: %@", ex, columnName, resultDictionary);
 
             // Fail fast in Debug builds.
             #if DEBUG

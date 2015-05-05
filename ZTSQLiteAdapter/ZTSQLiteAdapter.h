@@ -15,7 +15,6 @@ FOUNDATION_EXPORT double ZTSQLiteAdapterVersionNumber;
 //! Project version string for ZTSQLiteAdapter.
 FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 
-@class FMResultSet;
 @protocol MTLModel;
 
 @protocol ZTSQLiteSerializing <MTLModel>
@@ -61,37 +60,37 @@ FOUNDATION_EXPORT const unsigned char ZTSQLiteAdapterVersionString[];
 /// be passed into -[ZTSQLiteAdapter initWithModelClass:], but
 /// a subclass should be instantiated instead.
 ///
-/// resultSet - The SQLite result set that will be parsed.
+/// resultDictionary - The SQLite result dictionary that will be parsed.
 ///
 /// Returns the class that should be parsed (which may be the receiver), or nil
 /// to abort parsing (e.g., if the data is invalid).
-+ (Class)classForParsingResultSet:(FMResultSet *)resultSet;
++ (Class)classForParsingResultDictionary:(NSDictionary *)resultDictionary;
 
 @end
 
 /// The domain for errors originating from ZTSQLiteAdapter.
 extern NSString * const ZTSQLiteAdapterErrorDomain;
 
-/// +classForParsingResultSet: returned nil for the given dictionary.
+/// +classForParsingResultDictionary: returned nil for the given dictionary.
 extern const NSInteger ZTSQLiteAdapterErrorNoClassFound;
 
-/// Converts a MTLModel object to SQLite parameter dictionary (FMDB) with optional statement
-/// and from a SQLite result set (FMDB).
+/// Converts a MTLModel object to SQLite parameter dictionary (like in FMDB) with optional statement
+/// and from a SQLite result dictionary (like in FMDB).
 @interface ZTSQLiteAdapter : NSObject
 
-/// Attempts to parse a SQLite result set into a model object.
+/// Attempts to parse a SQLite result dictionary into a model object.
 ///
-/// modelClass     - The MTLModel subclass to attempt to parse from the JSON.
-///                  This class must conform to <ZTSQLiteSerializing>. This
-///                  argument must not be nil.
-/// resultSet      - A SQLite result set return by a query. If this argument is
-///                  nil, the method returns nil.
-/// error          - If not NULL, this may be set to an error that occurs during
-///                  parsing or initializing an instance of `modelClass`.
+/// modelClass          - The MTLModel subclass to attempt to parse from the JSON.
+///                       This class must conform to <ZTSQLiteSerializing>. This
+///                       argument must not be nil.
+/// resultDictionary    - A SQLite result dictionary return by a query. If this argument is
+///                       nil, the method returns nil.
+/// error               - If not NULL, this may be set to an error that occurs during
+///                       parsing or initializing an instance of `modelClass`.
 ///
 /// Returns an instance of `modelClass` upon success, or nil if a parsing error
 /// occurred.
-+ (id)modelOfClass:(Class)modelClass fromResultSet:(FMResultSet *)resultSet error:(NSError **)error;
++ (id)modelOfClass:(Class)modelClass fromResultDictionary:(NSDictionary *)resultDictionary error:(NSError **)error;
 
 /// Converts a model into SQLite parameter dictionary representation.
 ///
@@ -134,25 +133,25 @@ extern const NSInteger ZTSQLiteAdapterErrorNoClassFound;
 
 /// Initializes the receiver with a given model class.
 ///
-/// modelClass - The MTLModel subclass to attempt to parse from the SQLite result set
+/// modelClass - The MTLModel subclass to attempt to parse from the SQLite result dictionary
 ///              and back. This class must conform to <ZTSQLiteSerializing>. This
 ///              argument must not be nil.
 ///
 /// Returns an initialized adapter.
 - (instancetype)initWithModelClass:(Class)modelClass;
 
-/// Deserializes a model from a FMResultSet.
+/// Deserializes a model from a SQLite result dictionary.
 ///
 /// The adapter will call -validate: on the model and consider it an error if the
 /// validation fails.
 ///
-/// resultSet      - A FMResultSet. This argument must not be nil.
-/// error          - If not NULL, this may be set to an error that occurs during
-///                  deserializing or validation.
+/// resultDictionary    - A result dictionary. This argument must not be nil.
+/// error               - If not NULL, this may be set to an error that occurs during
+///                       deserializing or validation.
 ///
 /// Returns a model object, or nil if a deserialization error occurred or the
 /// model did not validate successfully.
-- (id)modelFromResultSet:(FMResultSet *)resultSet error:(NSError **)error;
+- (id)modelFromResultDictionary:(NSDictionary *)resultDictionary error:(NSError **)error;
 
 /// Serializes a model into SQLite parameter dictionary representation.
 ///

@@ -16,7 +16,6 @@
 		A5EF03D81ADE53C7002B348A /* ZTSQLiteAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EF03D71ADE53C7002B348A /* ZTSQLiteAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5EF03DE1ADE53C8002B348A /* ZTSQLiteAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03D21ADE53C7002B348A /* ZTSQLiteAdapter.framework */; };
 		A5EF03E51ADE53C8002B348A /* ZTSQLiteAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EF03E41ADE53C8002B348A /* ZTSQLiteAdapterTests.m */; };
-		A5EF03F01ADE562A002B348A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03EE1ADE562A002B348A /* FMDB.framework */; };
 		A5EF03F11ADE562A002B348A /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5EF03EF1ADE562A002B348A /* Mantle.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +51,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5EF03F01ADE562A002B348A /* FMDB.framework in Frameworks */,
 				A5EF03F11ADE562A002B348A /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
