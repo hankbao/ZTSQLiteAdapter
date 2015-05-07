@@ -244,8 +244,8 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 
     NSSet *propertyKeysToUpdating = [self updatablePropertyKeys:[NSSet setWithArray:self.SQLiteColumnNamesByPropertyKey.allKeys] forModel:model];
 
-    if ([model respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
-        NSSet *propertyKeysForPrimaryKeys = [model propertyKeysForPrimaryKeys];
+    if ([model.class respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
+        NSSet *propertyKeysForPrimaryKeys = [model.class propertyKeysForPrimaryKeys];
 
         if (propertyKeysForPrimaryKeys.count && statement) {
             NSArray *columnsToSet = [self.SQLiteColumnNamesByPropertyKey dictionaryWithValuesForKeys:propertyKeysToUpdating.allObjects].allValues;
@@ -275,8 +275,8 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
         return [otherAdapter parameterDictionaryFromModel:model deletingFromTable:tableName statement:statement error:error];
     }
 
-    if ([model respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
-        NSSet *propertyKeysForPrimaryKeys = [model propertyKeysForPrimaryKeys];
+    if ([model.class respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
+        NSSet *propertyKeysForPrimaryKeys = [model.class propertyKeysForPrimaryKeys];
 
         if (propertyKeysForPrimaryKeys.count) {
             if (statement) {
@@ -392,9 +392,9 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
 }
 
 - (NSSet *)updatablePropertyKeys:(NSSet *)propertyKeys forModel:(id<ZTSQLiteSerializing>)model {
-    if ([model respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
+    if ([model.class respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
         NSMutableSet* keys = [propertyKeys mutableCopy];
-        [keys minusSet:[model propertyKeysForPrimaryKeys]];
+        [keys minusSet:[model.class propertyKeysForPrimaryKeys]];
         return keys;
     }
     return propertyKeys;
