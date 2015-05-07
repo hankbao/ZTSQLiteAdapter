@@ -243,9 +243,11 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
     }
 
     NSSet *propertyKeysToUpdating = [self updatablePropertyKeys:[NSSet setWithArray:self.SQLiteColumnNamesByPropertyKey.allKeys] forModel:model];
+    NSSet *propertyKeysForParameterDictionary = propertyKeysToUpdating;
 
     if ([model.class respondsToSelector:@selector(propertyKeysForPrimaryKeys)]) {
         NSSet *propertyKeysForPrimaryKeys = [model.class propertyKeysForPrimaryKeys];
+        propertyKeysForParameterDictionary = [propertyKeysForParameterDictionary setByAddingObjectsFromSet:propertyKeysForPrimaryKeys];
 
         if (propertyKeysForPrimaryKeys.count && statement) {
             NSArray *columnsToSet = [self.SQLiteColumnNamesByPropertyKey dictionaryWithValuesForKeys:propertyKeysToUpdating.allObjects].allValues;
@@ -262,7 +264,7 @@ static SEL MTLSelectorWithKeyPattern(NSString *key, const char *suffix) {
         }
     }
 
-    return [self parameterDictionaryFromModel:model propertyKeys:propertyKeysToUpdating error:error];
+    return [self parameterDictionaryFromModel:model propertyKeys:propertyKeysForParameterDictionary error:error];
 }
 
 - (NSDictionary *)parameterDictionaryFromModel:(id<ZTSQLiteSerializing>)model deletingFromTable:(NSString *)tableName statement:(NSString *__autoreleasing *)statement error:(NSError *__autoreleasing *)error {
